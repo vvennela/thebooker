@@ -3,14 +3,16 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import LabelEncoder
+from xgboost import XGBClassifier
 
 df = pd.read_csv("games.csv")
 df = df[df['WL'].isin(['W', 'L'])]
 
-features = ['BEFORE_ELO', 'SLIDING_PTS', 'SLIDING_FGM', 'SLIDING_FGA', 'SLIDING_FG_PCT',
-            'SLIDING_FG3M', 'SLIDING_FG3A', 'SLIDING_FG3_PCT', 'SLIDING_FTM', 'SLIDING_FTA',
-            'SLIDING_FT_PCT', 'SLIDING_OREB', 'SLIDING_DREB', 'SLIDING_REB', 'SLIDING_AST',
-            'SLIDING_STL', 'SLIDING_BLK', 'SLIDING_TOV', 'SLIDING_PF', 'SLIDING_PLUS_MINUS']
+features = ['BEFORE_ELO',  'SLIDING_FG_PCT','SLIDING_FG3A',
+            'SLIDING_DREB', 'SLIDING_REB', 'SLIDING_AST',
+            'SLIDING_STL', 'SLIDING_BLK', 'SLIDING_PLUS_MINUS']
+
+
 
 label = 'WL'  
 le = LabelEncoder()
@@ -29,22 +31,19 @@ X_test = test_data[features]
 y_test = test_data[label]
 
 param_grid = {
-    'n_estimators': [50, 100, 150],
-    'max_depth': [None, 10, 20],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4]
+    'n_estimators': [30],
+    'max_depth': [3],
+    'min_child_weight': [8],
+    'gamma': [4.7]
 }
-
-
-
-rf = RandomForestClassifier(random_state=42)
-grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=3, scoring='accuracy')
+xgb = XGBClassifier(use_label_encoder=False, eval_metric='logloss')
+grid_search = GridSearchCV(estimator=xgb, param_grid=param_grid, cv=3, scoring='accuracy')
 grid_search.fit(X_train, y_train)
 
-best_rf = grid_search.best_estimator_
-y_pred_rf = best_rf.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred_rf)
+best_xgb = grid_search.best_estimator_
+y_pred_xgb = best_xgb.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred_xgb)
 #print(f"Accuracy: {accuracy:.4f}")
 
 #print("\nClassification Report:")
-#print(classification_report(y_test, y_pred_rf))
+#print(classification_report(y_test, y_pred_xgb))
