@@ -22,3 +22,4 @@ def winner(team_name, opp_name):
     return winner 
 
 
+print(winner("DET", "CHA"))
