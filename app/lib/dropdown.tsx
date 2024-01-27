@@ -36,14 +36,17 @@ const teams = [
     {value: "WAS", label: "Washington Wizards"}
 ];
 
-
 type TeamType = { value: string, label: string };
+type DropdownProps = {
+    setTeam: React.Dispatch<React.SetStateAction<TeamType | null>>;
+};
 
-export default function Dropdown() {
+export default function Dropdown({ setTeam }: DropdownProps) {
     const [selectedTeams, setSelectedTeams] = useState<TeamType | null>(null);
 
     const handleChange = (selectedTeams: TeamType | null) => {
         setSelectedTeams(selectedTeams);
+        setTeam(selectedTeams); 
     };
 
     return (

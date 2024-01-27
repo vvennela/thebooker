@@ -4,7 +4,7 @@ import pandas as pd
 from model import features, best_xgb
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 df = pd.read_csv("games.csv")
 stored_features = features
 
@@ -31,3 +31,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
