@@ -1,0 +1,10 @@
+{
+    "production": {
+        "app_function": "app.app",
+        "aws_region": "us-west-1",
+        "profile_name": "default",
+        "project_name": "server-scripts",
+        "runtime": "python3.11",
+        "s3_bucket": "zappa-thebooker"
+    }
+}

@@ -1,7 +1,6 @@
 # import time
 import pandas as pd 
 from nba_api.stats.endpoints import leaguegamefinder
-import pandas as pd
 
 
 # equations, methodology sourced from Josh Weiner's team @ UPenn

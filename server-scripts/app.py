@@ -4,9 +4,13 @@ import pandas as pd
 from model import features, best_xgb
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 df = pd.read_csv("games.csv")
 stored_features = features
+
+@app.route('/', methods = ['GET'])
+def hello():
+    return "Hello World!"
 
 @app.route('/predict', methods=['POST'])
 def predict():

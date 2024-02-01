@@ -1,7 +1,5 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import LabelEncoder
 from xgboost import XGBClassifier
 
@@ -42,7 +40,7 @@ grid_search.fit(X_train, y_train)
 
 best_xgb = grid_search.best_estimator_
 y_pred_xgb = best_xgb.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred_xgb)
+#accuracy = accuracy_score(y_test, y_pred_xgb)
 #print(f"Accuracy: {accuracy:.4f}")
 
 #print("\nClassification Report:")
