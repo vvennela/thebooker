@@ -29,7 +29,8 @@ for season in seasons:
         offense_stats.insert(loc = 0, column = 'Season', value = season)
         offense_stats.insert(loc = 2, column = 'Team', value = team.upper())
         nfl_df = pd.concat([nfl_df, offense_stats], ignore_index=True)
-        
+
+
         time.sleep(3)
 nfl_df.to_csv("nfl_games.csv", index = False)
 end = datetime.now()
